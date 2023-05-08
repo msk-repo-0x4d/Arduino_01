@@ -36,7 +36,7 @@ To get started with the TFT, you need to make following connections in Arduino U
 
 ## Sketch 1: KMR Chip Test
 
-After making the above connections, you can use TFT library to display and test graphics. One test sketch that I found very useful was this [sketch_KMR_chip_test.ino](sketch_kmr_chip_test.ino). I picked this sketch from [Arduino forum](https://forum.arduino.cc/t/graphics-library-for-cheap-kmr-1-8-spi-s6d02a1-and-ili9163-tft-displays/391450/12). This sketch tries to guess the chip that is driving the TFT.
+After making the above connections, you can use TFT library to display and test graphics. One test sketch that I found very useful was this [sketch_KMR_chip_test.ino](sketch_KMR_chip_test/sketch_KMR_chip_test.ino). I picked this sketch from [Arduino forum](https://forum.arduino.cc/t/graphics-library-for-cheap-kmr-1-8-spi-s6d02a1-and-ili9163-tft-displays/391450/12). This sketch tries to guess the chip that is driving the TFT.
 
 
 Based on the result of this sketch I downloaded and installed **TFT_ILI9163** library. The **TFT_ILI9163** library worked with the TFT successfully. If you are running this sketch ( `sketch_KMR_chip_test.ino` ) then make sure **pins in the sketch** are described correctly and then run the sketch on the board. Also, in the sketch it said TFT_MOSI is connected to pin 11 but it actually meant SDA to pin 11. So you dont need to connect TFT_MOSI but TFT_SDA pin.
@@ -57,7 +57,7 @@ If you want to attach SD card and use it for displaying images then you have to 
 **Note**:- Some pins will reuse the pins from Arduino Uno and you may have to use a breadboard for it.
 
 
-I used this sketch [sketch_SDcard_KMR.ino](sketch_SDcard_KMR.ino) for displaying images. One of the limitation is that it renders only BMP image files. I used below image among few others from SD card to display on KMR TFT.
+I used this sketch [sketch_SDcard_KMR.ino](sketch_SDcard_KMR/sketch_SDcard_KMR.ino) for displaying images. One of the limitation is that it renders only BMP image files. I used below image among few others from SD card to display on KMR TFT.
 
 ![image](7686082SD.bmp)
 
@@ -66,4 +66,9 @@ The image was rendered on KMR TFT as below :
 <img src="tft_display_image.jpg" alt="tft display image" width="200" />
 
 
+
+
+## References
+1. [Arduino forum](https://forum.arduino.cc/t/graphics-library-for-cheap-kmr-1-8-spi-s6d02a1-and-ili9163-tft-displays/391450/12)
+2. [Michael Schoeffler's website](https://mschoeffler.com/2019/06/20/arduino-tutorial-making-the-kmr-1-8-spi-tft-display-work/)
 
