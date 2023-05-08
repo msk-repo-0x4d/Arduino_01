@@ -4,24 +4,17 @@
 // Bit bashes SPI so it does NOT assume hardware SPI wired up
 // No other libraries are needed
 
-// Original author unknown
-// Adapted by Bodmer 22/5/16, updated 16/9/16
+// Original author :unknown
+// First Adapted by Bodmer 22/5/16, updated 16/9/16
 
 // Change the pin settings to suit your hardware
 
 // UNO etc
-#define TFT_MOSI  11
-#define TFT_SCK 13
+#define TFT_SDA  11 // this is TFT_SDA for bidirectional data line
+#define TFT_SCL 13
 #define TFT_CS 10
 #define TFT_DC  9
 #define TFT_RESET 8
-
-//Mega
-//#define TFT_MOSI  51
-//#define TFT_SCK 52
-//#define TFT_CS 47
-//#define TFT_DC  48
-//#define TFT_RESET 44
 
 /* Example Serial Monitor output:
 
@@ -55,28 +48,28 @@ uint32_t readwrite8(uint8_t cmd, uint8_t bits, uint8_t dummy)
     int cnt = 8;
     digitalWrite(TFT_CS, LOW);
     digitalWrite(TFT_DC, LOW);
-    pinMode(TFT_MOSI, OUTPUT);
+    pinMode(TFT_SDA, OUTPUT);
     for (int i = 0; i < 8; i++) {   //send command
-        digitalWrite(TFT_MOSI, (val & 0x80) != 0);
-        digitalWrite(TFT_SCK, HIGH);
-        digitalWrite(TFT_SCK, LOW);
+        digitalWrite(TFT_SDA, (val & 0x80) != 0);
+        digitalWrite(TFT_SCL, HIGH);
+        digitalWrite(TFT_SCL, LOW);
         val <<= 1;
     }
     if (bits == 0) {
         digitalWrite(TFT_CS, HIGH);
         return 0;
     }
-    pinMode(TFT_MOSI, INPUT_PULLUP);
+    pinMode(TFT_SDA, INPUT_PULLUP);
     digitalWrite(TFT_DC, HIGH);
     for (int i = 0; i < dummy; i++) {  //any dummy clocks
-        digitalWrite(TFT_SCK, HIGH);
-        digitalWrite(TFT_SCK, LOW);
+        digitalWrite(TFT_SCL, HIGH);
+        digitalWrite(TFT_SCL, LOW);
     }
     for (int i = 0; i < bits; i++) {  // read results
         ret <<= 1;
-        if (digitalRead(TFT_MOSI)) ret |= 1;;
-        digitalWrite(TFT_SCK, HIGH);
-        digitalWrite(TFT_SCK, LOW);
+        if (digitalRead(TFT_SDA)) ret |= 1;;
+        digitalWrite(TFT_SCL, HIGH);
+        digitalWrite(TFT_SCL, LOW);
     }
     digitalWrite(TFT_CS, HIGH);
     return ret;
@@ -102,10 +95,10 @@ void setup() {
     Serial.println("TFT driver register values:");
     Serial.println("===========================");
     digitalWrite(TFT_CS, HIGH);
-    //    digitalWrite(TFT_SCK, HIGH);
+    //    digitalWrite(TFT_SCL, HIGH);
     pinMode(TFT_CS, OUTPUT);
-    pinMode(TFT_SCK, OUTPUT);
-    pinMode(TFT_MOSI, OUTPUT);
+    pinMode(TFT_SCL, OUTPUT);
+    pinMode(TFT_SDA, OUTPUT);
     pinMode(MISO, INPUT_PULLUP);
     pinMode(TFT_DC, OUTPUT);
     pinMode(TFT_RESET, OUTPUT);
